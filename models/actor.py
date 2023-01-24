@@ -1,6 +1,7 @@
-from config.database import Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
+
+from config.database import Base
 
 
 class Actor(Base):
@@ -12,7 +13,7 @@ class Actor(Base):
     actor_last_name = Column(String)
     actor_gender = Column(String)
 
-    movie_casts = relationship("MovieCast", back_populates = "actors")
+    #movie_casts = relationship("MovieCast", back_populates = "actors")
 
 
 
