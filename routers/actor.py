@@ -1,24 +1,25 @@
-from typing import Optional
-from fastapi import APIRouter
-from pydantic import BaseModel, Field
+from fastapi import APIRouter,Path, Query, Depends
+from fastapi.responses import  JSONResponse
+from typing import  List
+from fastapi.encoders import jsonable_encoder
+
+from schemas.actor import Actor
+from config.database import Session
+from service.actor import ActorService
 
 
 actor_router = APIRouter()
 
+@actor_router.get('/actors',tags=['actors'], response_model=Actor, status_code= 200)
+def get_actor() ->Actor:   
+    db = Session()
+    result = ActorService(db).get_actors()
+    return JSONResponse(content=jsonable_encoder(result),status_code=200)
 
-class Actor(BaseModel):
-        id: Optional[int] = None
-        actor_frist_name: str = Field(max_length=15,min_length=3)
-        actor_last_name: str = Field(max_length=15,min_length=3)
-        actor_gender: str = Field(max_length=15,min_length=3)
-        rol: str = Field(max_length=15,min_length=3)
 
-        class Config:
-            schema_extra = {
-                "example":{
-                    "id": 1,
-                    "actor_last_name": "Vin",
-                    "actor_last_name":"Diesel",
-                    "actor_gender":"M"
-                }
-            }
+@actor_router.post('/actors', tags=['actors'], status_code=201 , response_model=dict)
+def create_actor(actor:Actor) ->dict:
+    db= Session()
+    ActorService(db).create_actor(actor)
+    return JSONResponse(content={'message':'actor save in data base'})
+
