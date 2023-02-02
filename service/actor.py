@@ -1,15 +1,15 @@
-from models.actor import Actor as ActorMoldel
+from models.actor import Actor as ActorModel
 
 class ActorService():
     def __init__(self,db) -> None:
         self.db = db
 
-    def get_actors(self) -> ActorMoldel:
-        result = self.db.query(ActorMoldel).all()
+    def get_actors(self) -> ActorModel:
+        result = self.db.query(ActorModel).all()
         return result
 
-    def create_actor(self,actor:ActorMoldel):
-        new_actor = ActorMoldel(
+    def create_actor(self,actor:ActorModel):
+        new_actor = ActorModel(
         actor_first_name = actor.actor_first_name ,
         actor_last_name = actor.actor_last_name,
         actor_gender = actor.actor_gender,    
