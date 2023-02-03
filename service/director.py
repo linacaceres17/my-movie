@@ -5,7 +5,7 @@ class DirectorService():
     def __init__(self,db) -> None:
         self.db = db
 
-    def get_director(self):
+    def get_directors(self):
         result = self.db.query(DirectorModel).all()
         return result
 
