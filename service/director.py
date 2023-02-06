@@ -9,15 +9,15 @@ class DirectorService():
         result = self.db.query(DirectorModel).all()
         return result
 
-    def get_director(self,id:int):
-        result = self.db.query(DirectorModel).filter(DirectorModel.id == id).first()
+    def get_director_by_id(self,id:int):
+        result = self.db.query(DirectorModel).filter(DirectorModel.id == id).all()
         
     def get_director_by_fname(self, fname:str):
         result = self.db.query(DirectorModel).filter(DirectorModel.fname==fname).all()
         return result
     
     def get_director_by_lname(self, lname:str):
-        result = self.db.query(DirectorModel).filter(DirectorModel.lname==lname).last()
+        result = self.db.query(DirectorModel).filter(DirectorModel.lname==lname).all()
         return result
 
     #crear
